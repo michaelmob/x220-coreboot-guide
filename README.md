@@ -45,7 +45,7 @@ git clone --recurse-submodules https://review.coreboot.org/coreboot.git ~/corebo
 
 #### Compile ifdtool
 ```sh
-cd ~/coreboot/ifdtool
+cd ~/coreboot/util/ifdtool
 make && sudo make install
 ```
 
