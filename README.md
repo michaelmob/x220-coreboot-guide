@@ -35,7 +35,7 @@ sudo apt install flashrom
 sudo apt install build-essential git libftdi1 libftdi-dev libusb-dev \
   libpci-dev m4 bison flex libncurses5-dev libncurses5 pciutils \
   usbutils libpci-dev libusb-dev libftdi1 libftdi-dev zlib1g-dev \
-  libusb-1.0 gnat-4.9 gnat
+  libusb-1.0 gnat-4.9
 ```
 
 #### Clone coreboot repo and submodules
@@ -113,7 +113,7 @@ md5sum flash01.bin flash02.bin flash03.bin flash04.bin
 #### Extract with idftool
 ```sh
 cd ~/rom
-idftool -x flash01.bin
+ifdtool -x flash01.bin
 ```
 
 #### Copy/move blobs
@@ -190,10 +190,16 @@ Payload
 #### Build coreboot
 ```sh
 make
-
 # Will be placed into `~/coreboot/build/coreboot.rom`.
 ```
 
+Or, in case you are running make from your raspberry pi, do:
+```sh
+make crossgcc-i386 CPUS=4
+make iasl
+make
+```
+The above commands will take a couple of hours. If your raspberry pi runs out of memory like mine, then create a swapfile https://digitizor.com/create-swap-file-ubuntu-linux/
 
 ## Write coreboot to flash chip
 
@@ -227,3 +233,13 @@ removing connections.
 * coreboot's [wiki page](https://www.coreboot.org/Board:lenovo/x220)
 * tripcode!Q/7's [video](https://www.youtube.com/watch?v=ExQKOtZhLBM)
 * Tyler Cipriani's [blog post](https://tylercipriani.com/blog/2016/11/13/coreboot-on-the-thinkpad-x220-with-a-raspberry-pi/)
+
+## FAQ
+- I'm getting "No EEPROM/flash device found" when trying to read the BIOS rom.
+Make sure that you've enabled SPI and run `ls /dev | grep spi` to confirm that your SPI devices are detected properly. If they do not appear it may have to do with your kernel. Download and flash latest Raspbian Lite and follow the tutorial from the start.
+
+- Make fails as the blobs folder is not empty `Microcode error: 3rdparty/blobs/cpu/intel/model_206ax/microcode.bin does not exist Microcode error: 3rdparty/blobs/cpu/intel/model_306ax/microcode.bin does not exist src/cpu/Makefile.inc:40: error execution recepie for target «build/cpu_microcode_blob.bin» make: ** [build/cpu_microcode_blob.bin] Error 1`
+Clone 3rd party blobs
+```cd ~/coreboot/3rdparty
+git clone http://review.coreboot.org/blobs.git```
+source: https://www.reddit.com/r/coreboot/comments/7y6nqo/missing_microcode/
