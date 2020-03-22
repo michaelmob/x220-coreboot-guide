@@ -110,6 +110,12 @@ md5sum flash01.bin flash02.bin flash03.bin flash04.bin
 
 ## Blobs
 
+#### Run me_cleaner (Optional)
+Run `me_cleaner` with `-S` option to enable the HAP AltMeDisable kill-switch and remove the extra code from the firmware.
+```sh
+~/me_cleaner/me_cleaner.py -S flash01.bin
+```
+
 #### Extract with idftool
 ```sh
 cd ~/rom
@@ -124,11 +130,6 @@ cd $_
 cp ~/rom/flashregion_0_flashdescriptor.bin descriptor.bin
 cp ~/rom/flashregion_2_intel_me.bin me.bin
 cp ~/rom/flashregion_3_gbe.bin gbe.bin
-```
-
-#### Run me_cleaner (Optional)
-```sh
-~/me_cleaner/me_cleaner.py me.bin
 ```
 
 
