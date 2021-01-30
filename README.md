@@ -34,7 +34,7 @@ sudo apt install flashrom
 ```sh
 sudo apt install build-essential git libftdi1 libftdi-dev libusb-dev \
   libpci-dev m4 bison flex libncurses5-dev libncurses5 pciutils \
-  usbutils libpci-dev libusb-dev libftdi1 libftdi-dev zlib1g-dev \
+  usbutils libpci-dev libusb-dev zlib1g-dev \
   libusb-1.0 gnat-4.9
 ```
 
