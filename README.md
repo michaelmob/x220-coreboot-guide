@@ -58,7 +58,7 @@ git clone https://github.com/corna/me_cleaner ~/me_cleaner
 
 ## Pinout
 
-[View Pinout Image.](pinout.png)
+![x220 Bios Chip Pinout](inout.png)
 
 You will need six jumper wires for VCC, MOSI, MISO, CLK, CS, and GND.  
 *Note: VCC is 3.3 volts.*
