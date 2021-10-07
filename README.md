@@ -2,10 +2,11 @@
 
 This repository is a supplement for [my x220 coreboot flash guide on YouTube](https://youtu.be/kJRgBlXRy5I).
 
-While highly unlikely, it is possible to brick your x220 by trying to flash
-coreboot. I take no responsibility if that were to occur so do this at your own risk.
+While highly unlikely, it is possible to brick your x220 while attempting to flash
+coreboot. I take no responsibility if that horrible and unfortunate event were to
+occur, so do this at your own risk.
 
-*You can always re-flash your old BIOS. (Keep backups!)*
+*You can always re-flash your old BIOS. (**Keep backups!**)*
 
 
 ## Setup
@@ -235,12 +236,20 @@ removing connections.
 * tripcode!Q/7's [video](https://www.youtube.com/watch?v=ExQKOtZhLBM)
 * Tyler Cipriani's [blog post](https://tylercipriani.com/blog/2016/11/13/coreboot-on-the-thinkpad-x220-with-a-raspberry-pi/)
 
-## FAQ
-- I'm getting "No EEPROM/flash device found" when trying to read the BIOS rom.
+## Common Issues
+- *I'm getting "No EEPROM/flash device found" when trying to read the BIOS rom.*
 Make sure that you've enabled SPI and run `ls /dev | grep spi` to confirm that your SPI devices are detected properly. If they do not appear it may have to do with your kernel. Download and flash latest Raspbian Lite and follow the tutorial from the start.
 
-- Make fails as the blobs folder is not empty `Microcode error: 3rdparty/blobs/cpu/intel/model_206ax/microcode.bin does not exist Microcode error: 3rdparty/blobs/cpu/intel/model_306ax/microcode.bin does not exist src/cpu/Makefile.inc:40: error execution recepie for target «build/cpu_microcode_blob.bin» make: ** [build/cpu_microcode_blob.bin] Error 1`
-Clone 3rd party blobs
-```cd ~/coreboot/3rdparty
-git clone http://review.coreboot.org/blobs.git```
-source: https://www.reddit.com/r/coreboot/comments/7y6nqo/missing_microcode/
+
+- *One of the `make` command fails with the follow output:*
+  ```
+  Microcode error: 3rdparty/blobs/cpu/intel/model_206ax/microcode.bin does not exist Microcode error: 3rdparty/blobs/cpu/intel/model_306ax/microcode.bin does not exist src/cpu/Makefile.inc:40: error execution recepie for target «build/cpu_microcode_blob.bin» make: ** [build/cpu_microcode_blob.bin] Error 1
+  ```
+  Clone coreboot's [3rd party blobs](https://github.com/coreboot/blobs) repository.
+  ```
+  cd ~/coreboot/3rdparty
+  git clone http://review.coreboot.org/blobs.git
+
+  # more details:
+  # https://www.reddit.com/r/coreboot/comments/7y6nqo/missing_microcode/
+  ```
